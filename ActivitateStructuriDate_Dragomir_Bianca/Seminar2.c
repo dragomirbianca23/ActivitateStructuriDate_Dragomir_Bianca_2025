@@ -68,9 +68,6 @@ void dezalocare(struct Masina** vector, int* nrElemente) {
 }
 
 void copiazaMasiniIeftine(struct Masina* vector, char nrElemente, float prag, struct Masina** vectorNou, int* dimensiune) {
-	//parametrul prag poate fi modificat in functie de 
-	// tipul atributului ales pentru a indeplini o conditie
-	//este creat un nou vector cu elementele care indeplinesc acea conditie
 	*dimensiune = 0;
 	for (int i = 0; i < nrElemente; i++)
 	{
@@ -94,13 +91,14 @@ void copiazaMasiniIeftine(struct Masina* vector, char nrElemente, float prag, st
 	}
 }
 
-struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente, const char* conditie) {
-	//trebuie cautat elementul care indeplineste o conditie
-	//dupa atributul de tip char*. Acesta este returnat.
-	struct Masina s;
-	s.id = 1;
-
-	return s;
+struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente, const char* modelCautat) {
+	for (int i = 0; i < nrElemente; i++) {
+		if (strcmp(vector[i].model, modelCautat) == 0) {
+			return vector[i];
+		}
+	}
+	struct Masina m = { 0, 0, "", 0.0, ' ' };
+	return m;
 }
 
 
@@ -127,7 +125,12 @@ int main() {
 	afisareVector(vectorNou, nrElementeCopiate);
 
 	dezalocare(&vectorNou, &nrElementeCopiate);
+
+	printf("\nCautare model 'Logan':\n");
+	struct Masina m = getPrimulElementConditionat(vector, nrMasini, "Logan");
+	afisare(m);
 	dezalocare(&vector, &nrMasini);
+
 	return 0;
 }
 
