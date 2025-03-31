@@ -26,7 +26,7 @@ BoutiqueDaruri citireDeLaTastatura() {
     printf("Introduceti codul: ");
     scanf("%d", &bd.cod);
     printf("Introduceti denumirea magazinului: ");
-    scanf(" %[^\n]%*c", bd.denumire);
+    scanf(" %s ", bd.denumire);
     printf("Introduceti numarul de produse: ");
     scanf("%d", &bd.nrProduse);
     bd.preturi = (float*)malloc(bd.nrProduse * sizeof(float));
