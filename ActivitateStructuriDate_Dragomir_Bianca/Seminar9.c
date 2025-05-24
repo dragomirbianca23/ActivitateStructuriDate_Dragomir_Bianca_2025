@@ -64,7 +64,7 @@ int calculeazaInaltimeArbore(Nod* arbore) {
 		return (inaltimeStanga > inaltimeDreapta ? inaltimeStanga : inaltimeDreapta) + 1;
 	}
 	else
-	{
+	{ 
 		return  0;
 	}
 	return 0;
@@ -157,23 +157,51 @@ void afisarePreOrdineRSD(Nod* radacina) {
 	}
 }
 
-void afisareMasiniDinArbore(/*arbore de masini*/) {
-	//afiseaza toate elemente de tip masina din arborele creat
-	//prin apelarea functiei afisareMasina()
-	//parcurgerea arborelui poate fi realizata in TREI moduri
-	//folositi toate cele TREI moduri de parcurgere
-}
-
-void dezalocareArboreDeMasini(/*arbore de masini*/) {
-	//sunt dezalocate toate masinile si arborele de elemente
+void dezalocareArboreDeMasini(Nod** nod) {
+	if (*nod)
+	{
+		dezalocareArboreDeMasini(&(*nod)->dreapta);
+		dezalocareArboreDeMasini(&(*nod)->stanga);
+		free((*nod)->info.model);
+		free((*nod)->info.numeSofer);
+		free((*nod));
+		(*nod) = NULL;
+	}
 }
 
 //Preluati urmatoarele functii din laboratorul precedent.
 //Acestea ar trebuie sa functioneze pe noul arbore echilibrat.
 
-Masina getMasinaByID(/*arborele de masini*/int id);
+Masina getMasinaByID(Nod* nod, int id)
+{
+	Masina m;
+	m.id = -1;
+	if (nod)
+	{
+		if (id < nod->info.id)
+		{
+			return getMasinaByID(nod->stanga, id);
+		}
+		if (id > nod->info.id)
+		{
+			return getMasinaByID(nod->dreapta, id);
+		}
+		else
+			return nod->info;
+	}
+	else return m;
+}
 
-int determinaNumarNoduri(/*arborele de masini*/);
+int determinaNumarNoduri(Nod* nod)
+{
+	if (nod)
+	{
+		int noduriDreapta = determinaNumarNoduri(nod->dreapta);
+		int noduriStanga = determinaNumarNoduri(nod->stanga);
+		return 1 + noduriDreapta + noduriStanga;
+	}
+	else return 0;
+}
 
 float calculeazaPretTotal(Nod* radacina)
 {
@@ -190,12 +218,32 @@ float calculeazaPretTotal(Nod* radacina)
 	}
 }
 
-float calculeazaPretulMasinilorUnuiSofer(/*arbore de masini*/ const char* numeSofer);
-
+float calculeazaPretulMasinilorUnuiSofer(Nod* nod, const char* numeSofer)
+{
+	float suma = 0;
+	if (nod)
+	{
+		if (strcmp(nod->info.numeSofer, numeSofer) == 0)
+		{
+			suma += nod->info.pret;
+		}
+		suma += calculeazaPretulMasinilorUnuiSofer(nod->stanga, numeSofer);
+		suma += calculeazaPretulMasinilorUnuiSofer(nod->dreapta, numeSofer);
+		return suma;
+	}
+	else return 0;
+}
 int main() {
-	Nod* radacina = citireArboreDeMasiniDinFisier("masini2.txt");
-	afisarePreOrdineRSD(radacina);
-
-	printf("%.2f", calculeazaPretTotal(radacina));
+	Nod* arbore = citireArboreDeMasiniDinFisier("masini_arbore.txt");
+	afisarePreOrdineRSD(arbore);
+	printf("Pretul tuturor masinilor este: %.2f\n", calculeazaPretTotal(arbore));
+	printf("Inaltimea arborelui este: %d\n", calculeazaInaltimeArbore(arbore));
+	printf("Gradul de echilibru este: %d\n", calculeazaGradEchilibru(arbore));
+	printf("Pretul masinilor unui sofer este: %.2f\n", calculeazaPretulMasinilorUnuiSofer(arbore, "Gigel"));
+	Masina m = getMasinaByID(arbore, 8);
+	printf("Masina cautata este: \n");
+	afisareMasina(m);
+	printf("Numarul de noduri este: %d\n", determinaNumarNoduri(arbore));
+	dezalocareArboreDeMasini(&arbore);
 	return 0;
 }
