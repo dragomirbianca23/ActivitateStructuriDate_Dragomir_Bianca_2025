@@ -13,10 +13,10 @@ struct StructuraMasina {
 };
 typedef struct StructuraMasina Masina;
 
-typedef struct nod nod;
-struct nod {
+typedef struct Nod Nod;
+struct Nod {
 	Masina info;
-	nod* next;
+	Nod* next;
 };
 
 
@@ -51,7 +51,7 @@ void afisareMasina(Masina masina) {
 	printf("Serie: %c\n\n", masina.serie);
 }
 
-void afisareListaMasini(nod* cap) {  // pointer transmis prin valoare, nu vrem sa modificam adresa dar putem modifica ce se gaseste la adresa respectiva
+void afisareListaMasini(Nod* cap) {  // pointer transmis prin valoare, nu vrem sa modificam adresa dar putem modifica ce se gaseste la adresa respectiva
 	while (cap != NULL)
 	{
 		afisareMasina(cap->info);
@@ -59,13 +59,13 @@ void afisareListaMasini(nod* cap) {  // pointer transmis prin valoare, nu vrem s
 	}
 }
 
-void adaugaMasinaInLista(nod** cap, Masina masinaNoua) { //avem ** pt posibil o sa modificam adresa
-	nod* nou;
-	nou = malloc(sizeof(nod));
+void adaugaMasinaInLista(Nod** cap, Masina masinaNoua) { //avem ** pt posibil o sa modificam adresa
+	Nod* nou;
+	nou = malloc(sizeof(Nod));
 	nou->info = masinaNoua;
 	nou->next = NULL;
 	if ((*cap) != NULL) {
-		nod* aux = (*cap);
+		Nod* aux = (*cap);
 		while (aux->next != NULL)
 		{
 			aux = aux->next;
@@ -79,17 +79,17 @@ void adaugaMasinaInLista(nod** cap, Masina masinaNoua) { //avem ** pt posibil o 
 
 }
 
-void adaugaLaInceputInLista(nod** cap, Masina masinaNoua) {
+void adaugaLaInceputInLista(Nod** cap, Masina masinaNoua) {
 	//adauga la inceputul listei o noua masina pe care o primim ca parametru
-	nod* nou = malloc(sizeof(nod));
+	Nod* nou = malloc(sizeof(Nod));
 	nou->info = masinaNoua;
 	nou->next = (*cap);
 	(*cap) = nou;
 }
 
-nod* citireListaMasiniDinFisier(const char* numeFisier) {
+Nod* citireListaMasiniDinFisier(const char* numeFisier) {
 	FILE* f = fopen(numeFisier, "r");
-	nod* cap = NULL;
+	Nod* cap = NULL;
 	while (!feof(f)) {
 		Masina m;
 		m = citireMasinaDinFisier(f);
@@ -99,9 +99,9 @@ nod* citireListaMasiniDinFisier(const char* numeFisier) {
 	return cap;
 }
 
-void dezalocareListaMasini(nod** cap) {
+void dezalocareListaMasini(Nod** cap) {
 	while ((*cap) != NULL) {
-		nod* temp;
+		Nod* temp;
 		temp = (*cap)->next;
 		free((*cap)->info.model);
 		free((*cap)->info.numeSofer);
@@ -111,7 +111,7 @@ void dezalocareListaMasini(nod** cap) {
 
 }
 
-float calculeazaPretMediu(nod* cap) {
+float calculeazaPretMediu(Nod* cap) {
 	float suma = 0;
 	int k = 0;
 	while (cap != NULL)
@@ -128,9 +128,9 @@ float calculeazaPretMediu(nod* cap) {
 		return 0;
 }
 
-void stergeMasiniDinSeria(nod** cap, char serieCautata) {
-	nod* temp = *cap;
-	nod* nodAnterior = NULL;
+void stergeMasiniDinSeria(Nod** cap, char serieCautata) {
+	Nod* temp = *cap;
+	Nod* nodAnterior = NULL;
 	while (temp != NULL && temp->info.serie == serieCautata) {
 		*cap = temp->next;
 		free(temp->info.model);
@@ -155,7 +155,7 @@ void stergeMasiniDinSeria(nod** cap, char serieCautata) {
 	}
 }
 
-float calculeazaPretulMasinilorUnuiSofer(nod* cap, const char* numeSofer) {
+float calculeazaPretulMasinilorUnuiSofer(Nod* cap, const char* numeSofer) {
 	float suma = 0;
 	while (cap != NULL) {
 		if (strcmp(cap->info.numeSofer, numeSofer) == 0) {
@@ -168,7 +168,7 @@ float calculeazaPretulMasinilorUnuiSofer(nod* cap, const char* numeSofer) {
 
 
 int main() {
-	nod* cap = citireListaMasiniDinFisier("masini2.txt");
+	Nod* cap = citireListaMasiniDinFisier("masini2.txt");
 	afisareListaMasini(cap);
 	float medie = calculeazaPretMediu(cap);
 	printf("Media este: %f\n", medie);

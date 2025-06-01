@@ -14,16 +14,16 @@ struct StructuraMasina {
 };
 typedef struct StructuraMasina Masina;
 
-struct nod {
+struct Nod {
 	Masina info;
-	struct nod* next;
-	struct nod* prev;
+	struct Nod* next;
+	struct Nod* prev;
 };
-typedef struct nod nod;
+typedef struct Nod Nod;
 
 struct listaDubla {
-	nod* first;
-	nod* last;
+	Nod* first;
+	Nod* last;
 };
 typedef struct listaDubla listaDubla;
 
@@ -59,7 +59,7 @@ void afisareMasina(Masina masina) {
 }
 
 void afisareListaMasiniDeLaInceput(listaDubla list) {
-	nod* temp = list.first;
+	Nod* temp = list.first;
 	while (temp)
 	{
 		afisareMasina(temp->info);
@@ -68,7 +68,7 @@ void afisareListaMasiniDeLaInceput(listaDubla list) {
 }
 
 void afisareListaMasiniDeLaSfarsit(listaDubla list) {
-	nod* temp = list.last;
+	Nod* temp = list.last;
 	while (temp) {
 		afisareMasina(temp->info);
 		temp = temp->prev;
@@ -76,7 +76,7 @@ void afisareListaMasiniDeLaSfarsit(listaDubla list) {
 }
 
 void adaugaMasinaInListaLaSfarsit(listaDubla* list, Masina masinaNoua) {
-	nod* nodNou = (nod*)malloc(sizeof(nod));
+	Nod* nodNou = (Nod*)malloc(sizeof(Nod));
 	nodNou->info = masinaNoua;
 	nodNou->prev = list->last;
 	nodNou->next = NULL;
@@ -92,7 +92,7 @@ void adaugaMasinaInListaLaSfarsit(listaDubla* list, Masina masinaNoua) {
 }
 
 void adaugaMasinaInListaLaInceput(listaDubla* list, Masina masinaNoua) {
-	nod* temp = (nod*)malloc(sizeof(nod));
+	Nod* temp = (Nod*)malloc(sizeof(Nod));
 	temp->info = masinaNoua;
 	temp->next = list->first;
 	temp->prev = NULL;
@@ -124,7 +124,7 @@ listaDubla citireLDMasiniDinFisier(const char* numeFisier) {
 
 void dezalocareLDMasini(listaDubla* lista) {
 	while (lista->first) {
-		nod* temp = lista->first;
+		Nod* temp = lista->first;
 		free(temp->info.numeSofer);
 		free(temp->info.model);
 		lista->first = lista->first->next;
@@ -137,7 +137,7 @@ float calculeazaPretMediu(listaDubla lista) {
 	float pretMediu;
 	float suma = 0;
 	int contor = 0;
-	nod* temp = lista.first;
+	Nod* temp = lista.first;
 
 	while (temp) {
 		contor++;
@@ -155,7 +155,7 @@ float calculeazaPretMediu(listaDubla lista) {
 void stergeMasinaDupaID(listaDubla* lista, int id) {
 	if (!lista->first) return; 
 
-	nod* temp = lista->first;
+	Nod* temp = lista->first;
 
 	while (temp) {
 		if (temp->info.id == id) {
@@ -185,8 +185,8 @@ void stergeMasinaDupaID(listaDubla* lista, int id) {
 char* getNumeSoferMasinaScumpa(listaDubla lista) {
 	if (!lista.first) return NULL; 
 
-	nod* temp = lista.first;
-	nod* max = lista.first;
+	Nod* temp = lista.first;
+	Nod* max = lista.first;
 
 	while (temp) {
 		if (temp->info.pret > max->info.pret) {

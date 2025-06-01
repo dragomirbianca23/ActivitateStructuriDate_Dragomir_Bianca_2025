@@ -21,5 +21,59 @@
     <ClCompile Include="Seminar2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Seminar3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Strudenti.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentare7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar9.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar10.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Seminar11.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentareABC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskuriSuplimentareAVL.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

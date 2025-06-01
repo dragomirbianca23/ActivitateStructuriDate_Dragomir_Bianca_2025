@@ -5,6 +5,7 @@ struct Masina {
 	int id;
 	int nrKm;
 	char* model;
+
 	float pret;
 	char tipMotor;
 };

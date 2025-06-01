@@ -220,6 +220,6 @@ int main() {
 	afisareMasina(popStack(&cap));
 
 	float pretTotal = calculeazaPretTotal(&cap);
-
+	 
 	return 0;
 }
